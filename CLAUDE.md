@@ -66,7 +66,7 @@ Model: `gemini-2.5-flash`. All methods are `async`. Prompts are module-level con
 | Method | Signature | Returns | What it does |
 |---|---|---|---|
 | `generate_summary` | `(notes_context: str) -> str` | summary text | Summarize today's notes in 2-3 sentences, ≤150 chars |
-| `generate_opener` | `(notes_context: str, summary: str) -> str` | opener text | Proactive 思语 opener to start a discussion |
+| `generate_opener` | `(notes_context: str, summary: str) -> str` | opener text | Proactive 回响AI助手 opener to start a discussion |
 | `discuss` | `(full_context: str, user_message: str) -> str` | AI reply | Discussion reply, with follow-up question |
 | `summarize_with_images` | `(notes_context: str, image_paths: list[str]) -> str` | summary text | Summary including image content (handwritten notes) |
 | `transcribe_audio` | `(audio_bytes: bytes, mime_type: str) -> str` | transcribed text | Speech-to-text with punctuation |

@@ -5,9 +5,8 @@ import type { EntryDetail } from '../types';
 export function useDiscuss() {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({ date, message }: { date: string; message: string }) =>
-      discussMessage(date, message),
+  return useMutation<EntryDetail, Error, { date: string; message: string }, { prev?: EntryDetail }>({
+    mutationFn: ({ date, message }) => discussMessage(date, message),
     onMutate: async ({ date, message }) => {
       await queryClient.cancelQueries({ queryKey: ['entry', date] });
       const prev = queryClient.getQueryData<EntryDetail>(['entry', date]);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { NoteItem } from '../../types';
 import { useNoteKeywords } from '../../hooks/useNoteKeywords';
+import ImageViewer from '../common/ImageViewer';
 
 interface Props {
   date: string;
@@ -14,6 +15,7 @@ interface Props {
 export default function NoteList({ date, notes, onDelete, readOnly, onExtractKeywords, keywordsLoading }: Props) {
   const [loadingNoteId, setLoadingNoteId] = useState<string | null>(null);
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
+  const [viewerImages, setViewerImages] = useState<{ images: string[]; index: number } | null>(null);
   const noteKeywords = useNoteKeywords();
 
   if (notes.length === 0) return null;
@@ -77,7 +79,7 @@ export default function NoteList({ date, notes, onDelete, readOnly, onExtractKey
         <div className="absolute left-2 top-2 bottom-2 w-0.5 bg-slate-200 rounded-full" />
 
         <div className="space-y-4">
-          {notes.map((note, i) => {
+          {notes.map((note, _i) => {
             const isThisLoading = loadingNoteId === note.note_id;
             const isCollapsed = collapsedIds.has(note.note_id);
             return (
@@ -141,12 +143,17 @@ export default function NoteList({ date, notes, onDelete, readOnly, onExtractKey
                       {note.images.length > 0 && (
                         <div className="flex gap-2 flex-wrap mt-3">
                           {note.images.map((img, idx) => (
-                            <img
+                            <button
                               key={idx}
-                              src={img}
-                              alt=""
-                              className="w-20 h-20 rounded-lg object-cover shadow-sm"
-                            />
+                              onClick={() => setViewerImages({ images: note.images, index: idx })}
+                              className="cursor-zoom-in"
+                            >
+                              <img
+                                src={img}
+                                alt=""
+                                className="w-20 h-20 rounded-lg object-cover shadow-sm"
+                              />
+                            </button>
                           ))}
                         </div>
                       )}
@@ -161,6 +168,14 @@ export default function NoteList({ date, notes, onDelete, readOnly, onExtractKey
           })}
         </div>
       </div>
+
+      {viewerImages && (
+        <ImageViewer
+          images={viewerImages.images}
+          initialIndex={viewerImages.index}
+          onClose={() => setViewerImages(null)}
+        />
+      )}
     </div>
   );
 }

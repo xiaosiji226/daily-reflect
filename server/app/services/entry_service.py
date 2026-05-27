@@ -255,7 +255,7 @@ class EntryService:
         discussion = entry.get("discussion", [])
         disc_lines = []
         for msg in discussion:
-            role = "用户" if msg["role"] == "user" else "思语"
+            role = "用户" if msg["role"] == "user" else "回响AI助手"
             disc_lines.append(f"{role}({msg['time']}): {msg['content']}")
 
         parts = []

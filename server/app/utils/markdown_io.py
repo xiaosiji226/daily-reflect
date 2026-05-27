@@ -25,7 +25,7 @@ AI 生成的综合总结...
 ## 讨论
 
 **你 (20:15):** 消息...
-**思语 (20:15):** 回复...
+**回响AI助手 (20:15):** 回复...
 """
 
 import re
@@ -134,7 +134,7 @@ def _parse_notes(section_body: str) -> list:
 def _parse_discussion(section_body: str) -> list:
     """Parse discussion section into list of messages."""
     messages = []
-    pattern = r'\*\*(你|思语) \((\d{2}:\d{2})\):\*\*\s*(.*?)(?=\n\*\*|$)'
+    pattern = r'\*\*(你|回响AI助手|思语) \((\d{2}:\d{2})\):\*\*\s*(.*?)(?=\n\*\*(?:你|回响AI助手|思语) \(|$)'
     for m in re.finditer(pattern, section_body, re.DOTALL):
         role = 'user' if m.group(1) == '你' else 'ai'
         messages.append({
@@ -177,7 +177,7 @@ def build_entry_body(notes: list, summary: str, discussion: list, date_str: str)
     lines.append('')
 
     for msg in discussion:
-        role_label = '你' if msg['role'] == 'user' else '思语'
+        role_label = '你' if msg['role'] == 'user' else '回响AI助手'
         lines.append(f"**{role_label} ({msg['time']}):** {msg['content']}")
         lines.append('')
 

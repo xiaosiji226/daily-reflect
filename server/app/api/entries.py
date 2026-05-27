@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import APIRouter, File, Form, UploadFile, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, File, Form, UploadFile, Depends, HTTPException
 
 from ..config import Settings
 from ..services.entry_service import EntryService, EntryNotFoundError, NoteNotFoundError
@@ -41,8 +41,35 @@ def empty_entry(date_str: str) -> dict:
     }
 
 
+async def _auto_extract_keywords(
+    text: str, date_str: str, service: EntryService, gemini: GeminiService
+):
+    """Background task: extract keywords for a newly added note."""
+    try:
+        raw_entry = await service.storage.get_entry(date_str)
+        for note in raw_entry.get("notes", []):
+            if note["text"] == text and not note.get("keywords"):
+                image_paths = []
+                for img_rel in note.get("images", []):
+                    img_abs = service.image_service.get_abs_path(img_rel)
+                    if img_abs.exists():
+                        image_paths.append(str(img_abs))
+
+                if image_paths:
+                    kw = await gemini.extract_keywords_with_images(text, image_paths)
+                else:
+                    kw = await gemini.extract_keywords(text)
+                note_keywords = {note["note_id"]: kw}
+                await service.update_keywords(date_str, note_keywords)
+                break
+    except Exception:
+        import logging
+        logging.getLogger("uvicorn").warning("Auto-extract keywords failed for new note")
+
+
 @router.post("/notes")
 async def add_note(
+    background_tasks: BackgroundTasks,
     text: str = Form(default=""),
     images: list[UploadFile] = File(default=[]),
     date: Optional[str] = Form(default=None),
@@ -63,29 +90,10 @@ async def add_note(
     except ValueError as e:
         raise HTTPException(status_code=400, detail={"error": str(e), "detail": ""})
 
-    # Auto-extract keywords for the new note
+    # Auto-extract keywords in background — don't block the response
     if text.strip():
-        try:
-            date_str = date or date_utils.today_str()
-            raw_entry = await service.storage.get_entry(date_str)
-            for note in raw_entry.get("notes", []):
-                if note["text"] == text and not note.get("keywords"):
-                    image_paths = []
-                    for img_rel in note.get("images", []):
-                        img_abs = service.image_service.get_abs_path(img_rel)
-                        if img_abs.exists():
-                            image_paths.append(str(img_abs))
-
-                    if image_paths:
-                        kw = await gemini.extract_keywords_with_images(text, image_paths)
-                    else:
-                        kw = await gemini.extract_keywords(text)
-                    note_keywords = {note["note_id"]: kw}
-                    result = await service.update_keywords(date_str, note_keywords)
-                    break
-        except Exception:
-            import logging
-            logging.getLogger("uvicorn").warning("Auto-extract keywords failed for new note")
+        date_str = date or date_utils.today_str()
+        background_tasks.add_task(_auto_extract_keywords, text, date_str, service, gemini)
 
     return result
 
@@ -151,7 +159,7 @@ async def summarize_entry(
 
     result = await service.update_summary(date, summary)
 
-    # If no discussion yet, generate a proactive opener from 思语
+    # If no discussion yet, generate a proactive opener from 回响AI助手
     if not entry.get("discussion"):
         try:
             opener = await gemini.generate_opener(context, summary)

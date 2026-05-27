@@ -37,9 +37,9 @@ The name "回响" (huí xiǎng) means "echo" or "resonance" — the AI is an ech
 
 | | |
 |---|---|
-| ![Home](screenshots/01-home.png) | ![Discussion](screenshots/02-discussion.png) |
+| ![Home](screenshots/01-home.png) | ![Discussion](screenshots/02-discussion.jpg) |
 | *Today's journal — write or dictate, AI does the rest* | *Deep conversation with 回响AI助手 about your day* |
-| ![History](screenshots/03-history.png) | ![Entry Detail](screenshots/04-entry-detail.png) |
+| ![History](screenshots/03-history.png) | ![Entry Detail](screenshots/04-entry-detail.jpg) |
 | *Browse past entries with keyword previews* | *Full entry view: notes, summary, and discussion* |
 | ![Export](screenshots/05-export-dialog.png) | |
 | *One-click export to Obsidian vault* | |

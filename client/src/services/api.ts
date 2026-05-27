@@ -1,4 +1,4 @@
-import type { EntryDetail, EntryListResponse, ExportResponse, ExportConfig, ErrorResponse } from '../types';
+import type { EntryDetail, EntryListResponse, ExportResponse, ExportConfig } from '../types';
 
 const BASE = '/api';
 
