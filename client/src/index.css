@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fafafa;
+  --color-primary-100: #f4f4f5;
+  --color-primary-200: #e8e8ea;
+  --color-primary-300: #d4d4d8;
+  --color-primary-400: #a1a1aa;
+  --color-primary-500: #1a1a1a;
+  --color-primary-600: #000000;
+  --color-primary-700: #000000;
+}
+
+@layer base {
+  :root {
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background-color: #f1f5f9;
+    color: #334155;
+    overscroll-behavior: none;
+  }
+
+  input, textarea, select {
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  .pb-safe {
+    padding-bottom: var(--safe-bottom);
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold tracking-wide uppercase;
+  }
+}
+
+@layer utilities {
+  .gradient-header {
+    background: #f4f4f5;
+    border-bottom: 1px solid #e8e8ea;
+  }
+
+  .gradient-summary {
+    background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 50%, #ede9fe 100%);
+  }
+
+  .gradient-yesterday {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fef9c3 100%);
+  }
+
+  .border-accent-rose { border-left: 3px solid #f43f5e; }
+  .border-accent-amber { border-left: 3px solid #f59e0b; }
+  .border-accent-emerald { border-left: 3px solid #10b981; }
+  .border-accent-sky { border-left: 3px solid #0ea5e9; }
+  .border-accent-violet { border-left: 3px solid #8b5cf6; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out;
+}

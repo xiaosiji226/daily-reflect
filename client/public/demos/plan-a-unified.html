@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案 A：AI 面板合二为一</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body class="max-w-md mx-auto min-h-screen">
+
+  <!-- Header -->
+  <div class="sticky top-0 z-10 bg-slate-50/80 backdrop-blur px-4 pt-4 pb-2">
+    <div class="flex items-center justify-between">
+      <span class="text-lg font-bold text-slate-800">每日反思</span>
+      <span class="text-xs text-slate-400">5月26日</span>
+    </div>
+  </div>
+
+  <div class="p-4 space-y-4 pb-24">
+
+    <!-- Yesterday recap: scrollable card -->
+    <div class="bg-amber-50/60 rounded-xl border border-amber-100/50 overflow-hidden">
+      <div class="flex items-center gap-2 px-3 py-2.5">
+        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-xs font-medium text-amber-600">昨日回顾</span>
+      </div>
+      <div class="px-3 pb-3 max-h-24 overflow-y-auto text-xs text-slate-600 leading-relaxed">
+        今天你以一种本自具足的积极心态开启了一天，体会自我滋养的充盈，并享受了亲手制作面条的乐趣。午后的待办清单让你意识到，现代996的生活完全跟精神充足的生活不兼容。你开始思考如何在忙碌中保持内心的平静与充实，更珍惜当下能自由支配时间带来的幸福感。或许，真正的平衡不在于时间的多少，而在于心态的调整。
+      </div>
+    </div>
+
+    <!-- Notes list -->
+    <div class="space-y-2.5">
+      <div class="flex items-center gap-2 px-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">今日笔记</span>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-3.5">
+        <div class="flex justify-between items-start mb-1.5">
+          <span class="text-xs text-slate-400">12:08</span>
+          <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">本自具足 · 自我滋养</span>
+        </div>
+        <p class="text-sm text-slate-700 leading-relaxed">今天早上起来洗完脸照镜子的时候，突然觉得，我不需要任何人来滋养我。或许这就是本自具足。感觉我自己待着就可以滋养自己。</p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-3.5">
+        <div class="flex justify-between items-start mb-1.5">
+          <span class="text-xs text-slate-400">13:32</span>
+          <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">拌面 · 自制 · 美食</span>
+        </div>
+        <p class="text-sm text-slate-700 leading-relaxed mb-2">我做的面，看着很不错吧。</p>
+        <div class="flex gap-2">
+          <div class="w-16 h-16 rounded-lg bg-slate-200 overflow-hidden"><img src="https://placehold.co/64x64/f1f5f9/94a3b8?text=1" class="w-full h-full object-cover"></div>
+          <div class="w-16 h-16 rounded-lg bg-slate-200 overflow-hidden"><img src="https://placehold.co/64x64/f1f5f9/94a3b8?text=2" class="w-full h-full object-cover"></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-3.5">
+        <div class="flex justify-between items-start mb-1.5">
+          <span class="text-xs text-slate-400">13:38</span>
+          <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">待办 · 忙碌 · 思考</span>
+        </div>
+        <p class="text-sm text-slate-700 leading-relaxed">我想到我还有很多事需要干。意识到现代996的生活完全跟精神充足的生活不兼容。</p>
+      </div>
+    </div>
+
+    <!-- AI unified panel with tabs -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+      <!-- Tab bar -->
+      <div class="flex border-b border-slate-100">
+        <button class="flex-1 py-3 text-sm font-medium text-violet-600 border-b-2 border-violet-500 bg-violet-50/50 flex items-center justify-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          今日总结
+        </button>
+        <button class="flex-1 py-3 text-sm font-medium text-slate-400 flex items-center justify-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          对话
+        </button>
+      </div>
+      <!-- Summary content -->
+      <div class="p-4">
+        <p class="text-sm text-slate-700 leading-relaxed">
+          今天你以一种本自具足的积极心态开启了一天，体会自我滋养的充盈，并享受了亲手制作面条的乐趣。午后，你列出了一系列待办事项，并深刻反思了现代工作强度与个人精神生活之间的冲突，更珍惜当下能自由支配时间带来的充实感。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom FAB -->
+  <div class="fixed bottom-6 left-0 right-0 flex justify-center z-20">
+    <button class="bg-indigo-500 text-white px-6 py-3 rounded-full shadow-lg shadow-indigo-200 text-sm font-medium active:bg-indigo-600 transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      记录新想法
+    </button>
+  </div>
+
+</body>
+</html>

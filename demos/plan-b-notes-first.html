@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案 B：笔记优先 + 底部抽屉</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .sheet-enter { transform: translateY(100%); }
+  .sheet-open { transform: translateY(0); }
+  .backdrop-hidden { opacity: 0; pointer-events: none; }
+  .backdrop-visible { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body class="max-w-md mx-auto min-h-screen relative">
+
+  <!-- Header -->
+  <div class="sticky top-0 z-10 bg-slate-50/80 backdrop-blur px-4 pt-4 pb-2">
+    <div class="flex items-center justify-between">
+      <span class="text-lg font-bold text-slate-800">每日反思</span>
+      <span class="text-xs text-slate-400">5月26日</span>
+    </div>
+  </div>
+
+  <div class="p-4 space-y-4 pb-24">
+
+    <!-- Yesterday recap -->
+    <div class="flex items-center gap-3 px-3 py-2.5 bg-amber-50/60 rounded-xl border border-amber-100/50 cursor-pointer active:bg-amber-100/50 transition-colors">
+      <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div class="flex-1 min-w-0">
+        <span class="text-xs text-amber-600">昨日回顾 · </span>
+        <span class="text-xs text-slate-500 truncate">今天你以一种本自具足的积极心态开启了一天...</span>
+      </div>
+      <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+
+    <!-- Section label -->
+    <div class="flex items-center gap-2 px-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">今日笔记</span>
+      <span class="ml-auto text-xs text-slate-400">3 条</span>
+    </div>
+
+    <!-- Notes - prominent, full-width cards -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+      <div class="flex justify-between items-start mb-2">
+        <span class="text-xs text-slate-400">12:08</span>
+        <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">本自具足 · 自我滋养</span>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed">今天早上起来洗完脸照镜子的时候，突然觉得，我不需要任何人来滋养我。或许这就是本自具足。感觉我自己待着就可以滋养自己。</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+      <div class="flex justify-between items-start mb-2">
+        <span class="text-xs text-slate-400">13:32</span>
+        <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">拌面 · 自制 · 美食</span>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed mb-3">我做的面，看着很不错吧。</p>
+      <div class="flex gap-2">
+        <div class="w-20 h-20 rounded-xl bg-slate-200 overflow-hidden"><img src="https://placehold.co/80x80/f1f5f9/94a3b8?text=1" class="w-full h-full object-cover"></div>
+        <div class="w-20 h-20 rounded-xl bg-slate-200 overflow-hidden"><img src="https://placehold.co/80x80/f1f5f9/94a3b8?text=2" class="w-full h-full object-cover"></div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+      <div class="flex justify-between items-start mb-2">
+        <span class="text-xs text-slate-400">13:38</span>
+        <span class="text-xs text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded">待办 · 忙碌 · 思考</span>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed">我想到我还有很多事需要干。意识到现代996的生活完全跟精神充足的生活不兼容。</p>
+    </div>
+
+  </div>
+
+  <!-- Floating action bar -->
+  <div class="fixed bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
+    <button onclick="openSheet()" class="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-5 py-3 rounded-full shadow-lg shadow-teal-200 text-sm font-medium active:from-teal-600 active:to-emerald-600 transition-all flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+      </svg>
+      回响 · AI 对话
+    </button>
+    <button class="bg-indigo-500 text-white px-5 py-3 rounded-full shadow-lg shadow-indigo-200 text-sm font-medium active:bg-indigo-600 transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      记录
+    </button>
+  </div>
+
+  <!-- Backdrop -->
+  <div id="backdrop" class="fixed inset-0 bg-black/30 z-30 transition-opacity duration-300 backdrop-hidden" onclick="closeSheet()"></div>
+
+  <!-- Bottom Sheet -->
+  <div id="sheet" class="fixed inset-x-0 bottom-0 z-40 bg-white rounded-t-3xl shadow-2xl transition-transform duration-300 ease-out sheet-enter" style="max-height: 80vh;">
+    <!-- Handle -->
+    <div class="flex justify-center pt-3 pb-1">
+      <div class="w-10 h-1 rounded-full bg-slate-300"></div>
+    </div>
+
+    <!-- Sheet header -->
+    <div class="px-5 pt-2 pb-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </div>
+        <span class="text-sm font-semibold text-slate-700">回响</span>
+      </div>
+      <button onclick="closeSheet()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center active:bg-slate-200">
+        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Tab bar inside sheet -->
+    <div class="flex border-b border-slate-100 px-5">
+      <button id="tab-summary" onclick="switchTab('summary')" class="flex-1 py-2.5 text-sm font-medium text-violet-600 border-b-2 border-violet-500 flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        今日总结
+      </button>
+      <button id="tab-discuss" onclick="switchTab('discuss')" class="flex-1 py-2.5 text-sm font-medium text-slate-400 flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        对话
+      </button>
+    </div>
+
+    <!-- Sheet scrollable content -->
+    <div class="overflow-y-auto px-5 py-4" style="max-height: 52vh;">
+
+      <!-- Summary panel -->
+      <div id="panel-summary">
+        <p class="text-sm text-slate-700 leading-relaxed">
+          今天你以一种本自具足的积极心态开启了一天，体会自我滋养的充盈，并享受了亲手制作面条的乐趣。午后，你列出了一系列待办事项，并深刻反思了现代工作强度与个人精神生活之间的冲突，更珍惜当下能自由支配时间带来的充实感。
+        </p>
+      </div>
+
+      <!-- Discuss panel (hidden by default) -->
+      <div id="panel-discuss" class="hidden space-y-3">
+        <div class="flex justify-start">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center shrink-0 mr-2 mt-1">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <div class="bg-slate-50 rounded-2xl rounded-bl-lg border border-slate-100 px-3.5 py-2.5 max-w-[78%]">
+            <p class="text-sm text-slate-700 leading-relaxed">今天你提到了"本自具足"这个很有深度的感悟。这让我想到，有时候我们向外寻求的，其实自己内心早已拥有。你觉得这种自我滋养的状态，最直接的体现是什么？</p>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <div class="bg-indigo-500 text-white rounded-2xl rounded-br-lg px-3.5 py-2.5 max-w-[78%]">
+            <p class="text-sm leading-relaxed">就是早上照镜子的时候，突然觉得自己待着就挺舒服的，不需要别人来填补什么</p>
+          </div>
+        </div>
+
+        <div class="flex justify-start">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center shrink-0 mr-2 mt-1">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <div class="bg-slate-50 rounded-2xl rounded-bl-lg border border-slate-100 px-3.5 py-2.5 max-w-[78%]">
+            <p class="text-sm text-slate-700 leading-relaxed">那种感觉很珍贵。不过后来你提到996带来的压力，你觉得这两者之间的张力要怎么调和呢？</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat input (only visible in discuss tab) -->
+    <div id="chat-input" class="hidden px-5 py-3 border-t border-slate-100">
+      <div class="flex items-end gap-2">
+        <input type="text" placeholder="和回响聊聊..." class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-slate-50">
+        <button class="shrink-0 px-4 h-[42px] rounded-xl bg-teal-500 text-white text-sm font-medium active:bg-teal-600 shadow-sm shadow-teal-200">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isOpen = false;
+    let currentTab = 'summary';
+
+    function openSheet() {
+      isOpen = true;
+      document.getElementById('sheet').classList.remove('sheet-enter');
+      document.getElementById('sheet').classList.add('sheet-open');
+      document.getElementById('backdrop').classList.remove('backdrop-hidden');
+      document.getElementById('backdrop').classList.add('backdrop-visible');
+    }
+
+    function closeSheet() {
+      isOpen = false;
+      document.getElementById('sheet').classList.add('sheet-enter');
+      document.getElementById('sheet').classList.remove('sheet-open');
+      document.getElementById('backdrop').classList.add('backdrop-hidden');
+      document.getElementById('backdrop').classList.remove('backdrop-visible');
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tab-summary').className = tab === 'summary'
+        ? 'flex-1 py-2.5 text-sm font-medium text-violet-600 border-b-2 border-violet-500 flex items-center justify-center gap-1.5'
+        : 'flex-1 py-2.5 text-sm font-medium text-slate-400 flex items-center justify-center gap-1.5';
+      document.getElementById('tab-discuss').className = tab === 'discuss'
+        ? 'flex-1 py-2.5 text-sm font-medium text-violet-600 border-b-2 border-violet-500 flex items-center justify-center gap-1.5'
+        : 'flex-1 py-2.5 text-sm font-medium text-slate-400 flex items-center justify-center gap-1.5';
+      document.getElementById('panel-summary').classList.toggle('hidden', tab !== 'summary');
+      document.getElementById('panel-discuss').classList.toggle('hidden', tab !== 'discuss');
+      document.getElementById('chat-input').classList.toggle('hidden', tab !== 'discuss');
+    }
+  </script>
+
+</body>
+</html>

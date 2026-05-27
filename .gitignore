@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+!.env.example
+
+# Data (user content)
+server/data/entries/
+server/data/images/
+
+# Node
+node_modules/
+client/dist/
+
+# IDE
+.vscode/
+.idea/
