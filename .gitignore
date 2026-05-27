@@ -11,6 +11,7 @@ venv/
 # Data (user content)
 server/data/entries/
 server/data/images/
+server/测试/
 
 # Node
 node_modules/
