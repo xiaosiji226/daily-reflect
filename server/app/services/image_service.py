@@ -43,15 +43,10 @@ class ImageService:
             if ext not in ('jpg', 'jpeg', 'png', 'webp'):
                 ext = 'jpg'
 
-        # Strip EXIF
-        data = list(img.getdata())
-        img_no_exif = Image.new(img.mode, img.size)
-        img_no_exif.putdata(data)
-
         # Resize if too large (max 2048px on longest side)
         max_dim = 2048
-        if img_no_exif.width > max_dim or img_no_exif.height > max_dim:
-            img_no_exif.thumbnail((max_dim, max_dim), Image.LANCZOS)
+        if img.width > max_dim or img.height > max_dim:
+            img.thumbnail((max_dim, max_dim), Image.LANCZOS)
 
         # Build path
         year, month, day = date_str.split("-")
@@ -61,7 +56,7 @@ class ImageService:
         abs_dir.mkdir(parents=True, exist_ok=True)
 
         save_path = abs_dir / filename
-        img_no_exif.save(save_path, quality=85, optimize=True)
+        img.save(save_path, quality=85)
 
         return str(rel_dir / filename).replace("\\", "/")
 
