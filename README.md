@@ -2,7 +2,7 @@
 
 > An AI-powered journal that doesn't just store your thoughts — it reflects with you.
 
-写下手记、拍照上传，AI 助手"思语"会阅读你一天的记录，生成总结，并与你展开深度对话。不是笔记工具，是思考伙伴。
+写下手记、拍照上传，AI 助手"回响AI助手"会阅读你一天的记录，生成总结，并与你展开深度对话。不是笔记工具，是思考伙伴。
 
 ## Why this exists
 
@@ -19,7 +19,7 @@ The name "回响" (huí xiǎng) means "echo" or "resonance" — the AI is an ech
 
 ### Reflect
 - **AI daily summary** — Gemini reads all your notes (including text in images) and writes a 2–3 sentence synthesis of your day
-- **Deep discussion** — the AI assistant "思语" engages you in conversation about your reflections, always ending with a follow-up question
+- **Deep discussion** — the AI assistant "回响AI助手" engages you in conversation about your reflections, always ending with a follow-up question
 - **Keyword extraction** — per-note and full-day keyword extraction, surfaced as chips in the UI
 
 ### Review
@@ -38,7 +38,7 @@ The name "回响" (huí xiǎng) means "echo" or "resonance" — the AI is an ech
 | | |
 |---|---|
 | ![Home](screenshots/01-home.png) | ![Discussion](screenshots/02-discussion.png) |
-| *Today's journal — write or dictate, AI does the rest* | *Deep conversation with 思语 about your day* |
+| *Today's journal — write or dictate, AI does the rest* | *Deep conversation with 回响AI助手 about your day* |
 | ![History](screenshots/03-history.png) | ![Entry Detail](screenshots/04-entry-detail.png) |
 | *Browse past entries with keyword previews* | *Full entry view: notes, summary, and discussion* |
 | ![Export](screenshots/05-export-dialog.png) | |
